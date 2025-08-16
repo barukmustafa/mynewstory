@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>My New Story — Protótipo</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Delius&display=swap');
+  </style>
+</head>
+<body>
+  <div id="frame" role="application" aria-label="My New Story Prototype">
+    <!-- HUD -->
+    <div id="hud">
+      <div class="hud-left">
+        <div class="hud-pill">
+          <img src="files/coin_icon.png" alt="Coins" class="icon-24" />
+          <span id="coins">0</span>
+        </div>
+        <div class="hud-pill">
+          <img src="files/gem_icon.png" alt="Gems" class="icon-24" />
+          <span id="gems">0</span>
+        </div>
+        <div class="hud-pill">
+          <img src="files/calendar_icon.png" alt="Dia" class="icon-24" />
+          <span class="hud-dia-label">Dia</span>
+          <span id="day">1</span>
+        </div>
+        <div class="hud-pill">
+          <img src="files/love_icon.png" alt="Afinidade" class="icon-24" />
+          <span id="aff">0</span>
+        </div>
+      </div>
+
+      <div class="hud-right">
+        <!-- Restart com ícone -->
+        <button id="btnRestart" title="Reiniciar (voltar ao Dia 1)" class="hud-btn">
+          <img src="files/restart_icon.png" alt="Reiniciar" class="icon-28" />
+        </button>
+        <button id="btnHome" title="Casa" class="hud-btn">
+          <img src="files/home_icon.png" alt="Home" class="icon-28" />
+        </button>
+        <button id="btnWork" title="Trabalho" class="hud-btn">
+          <img src="files/work_icon.png" alt="Work" class="icon-28" />
+        </button>
+        <button id="btnShop" title="Loja" class="hud-btn">
+          <img src="files/shop_icon.png" alt="Shop" class="icon-28" />
+        </button>
+      </div>
+    </div>
+
+    <!-- CENA -->
+    <div id="scene" aria-live="polite"></div>
+
+    <!-- Transição universal -->
+    <div id="transition"></div>
+
+    <!-- Toast -->
+    <div id="toast" role="status"></div>
+  </div>
+
+  <!-- Ordem importa -->
+  <script src="js/state.js"></script>
+  <script src="js/dialogue.js"></script>
+  <script src="js/home.js"></script>
+  <script src="js/work.js"></script>
+  <script src="js/minigame.js"></script>
+  <script src="js/shop.js"></script>
+  <script src="js/chapters/default.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

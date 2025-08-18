@@ -6,11 +6,15 @@
   --danger:#ff6b6b; --gold:#ffcc4d;
   --hud:#cf899b;
   --black:#000000;
+
+  /* escala global do frame (definida em JS) */
+  --scale: 1;
 }
 *{box-sizing:border-box}
 html,body{
   height:100%; margin:0; background:var(--bg); color:var(--text);
   font-family:"Delius", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  -webkit-text-size-adjust: 100%;
 }
 button{
   cursor:pointer; border:0; border-radius:10px; padding:10px 14px;
@@ -24,10 +28,29 @@ button:disabled{opacity:.45; cursor:not-allowed; filter:grayscale(0.2)}
 .btn-next{ font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; }
 .btn-continue{ font-size:1.3em; padding:12px 18px; }
 
-/* ===== FRAME ===== */
+/* ===== AVISO DE ROTAÇÃO (só mostra em phones portrait, controlado via JS) ===== */
+#rotateOverlay{
+  display:none; position:fixed; inset:0; z-index:9999;
+  background:rgba(0,0,0,.6); backdrop-filter: blur(2px);
+  align-items:center; justify-content:center;
+}
+#rotateOverlay.show{ display:flex; }
+.rotate-card{
+  background:rgba(20,20,26,.9); color:#fff; border:1px solid rgba(255,255,255,.12);
+  border-radius:14px; padding:16px 18px; text-align:center; max-width: 80%;
+}
+.rotate-title{ font-weight:900; margin-bottom:6px; font-size:1.2rem; }
+.rotate-sub{ opacity:.9; }
+
+/* ===== FRAME (base 1280x720, escala aplicada em tempo real) ===== */
 #frame{
-  position:relative; width:min(1280px,100vw); aspect-ratio:16/9; margin:10px auto 24px;
-  background:#111; border:1px solid #2a2a36; border-radius:16px; overflow:hidden; box-shadow:0 10px 40px rgba(0,0,0,.55);
+  position:relative;
+  width:1280px; height:720px;              /* base de layout */
+  transform: scale(var(--scale));
+  transform-origin: top center;
+  margin: 10px auto 24px;
+  background:#111; border:1px solid #2a2a36; border-radius:16px; overflow:hidden;
+  box-shadow:0 10px 40px rgba(0,0,0,.55);
 }
 
 /* ===== HUD ===== */
@@ -73,8 +96,7 @@ button:disabled{opacity:.45; cursor:not-allowed; filter:grayscale(0.2)}
 
 /* ===== DIALOGUE (VN) ===== */
 .scene-dialogue{
-  position:absolute; inset:0;
-  display:flex; flex-direction:column; justify-content:flex-end; padding:24px;
+  position:absolute; inset:0; display:flex; flex-direction:column; justify-content:flex-end; padding:24px;
 }
 .vn-characters{position:absolute; inset:0; pointer-events:none; overflow:visible;}
 .char{
@@ -96,9 +118,7 @@ button:disabled{opacity:.45; cursor:not-allowed; filter:grayscale(0.2)}
 .vn-text{ text-align:left; }
 .vn-text.me{ text-align:right; }
 
-.choices{
-  display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:6px;
-}
+.choices{ display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:6px; }
 .choice{
   text-align:center; padding:12px 14px; border-radius:12px;
   background:rgba(0,0,0,.35); border:2px solid var(--accent); color:#fff;
@@ -124,7 +144,7 @@ button:disabled{opacity:.45; cursor:not-allowed; filter:grayscale(0.2)}
   display:grid; grid-template-rows: 1fr 200px; gap:0;
 }
 
-/* camada de noite para crossfade */
+/* Crossfade noite */
 .mg-sky-night{
   position:absolute; inset:0; z-index:0;
   background: url("../files/bg_city_night.jpg") center/cover no-repeat;
@@ -184,12 +204,12 @@ button:disabled{opacity:.45; cursor:not-allowed; filter:grayscale(0.2)}
 .mg-pill-btn:hover{ transform:none; filter:brightness(1.05) }
 .mg-pill-btn img{ width:24px; height:24px; display:block; }
 
-/* Painéis (start/end) — AGORA ACIMA DE TUDO */
+/* Painéis (start/end) */
 .panel{
   position:absolute; left:50%; top:50%; transform:translate(-50%,-30%); min-width:340px;
   background:rgba(0,0,0,.8); border:1px solid rgba(255,255,255,.12); border-radius:14px;
   padding:18px; text-align:center; opacity:0; pointer-events:none;
-  z-index:10; /* <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<  garante que fique acima dos clientes/mesa/HUD */
+  z-index:10;
 }
 .panel.show{ pointer-events:all; animation: panelIn .35s cubic-bezier(.2,.9,.2,1) forwards; }
 @keyframes panelIn{ from{opacity:0; transform:translate(-50%,-10%)} to{opacity:1; transform:translate(-50%,-50%)} }

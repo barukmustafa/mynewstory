@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>My New Story — Protótipo</title>
   <link rel="stylesheet" href="css/style.css" />
   <style>
@@ -10,6 +10,14 @@
   </style>
 </head>
 <body>
+  <!-- Aviso de rotação (aparece em phones em retrato) -->
+  <div id="rotateOverlay" aria-live="polite">
+    <div class="rotate-card">
+      <div class="rotate-title">Melhor em paisagem</div>
+      <div class="rotate-sub">Gire seu dispositivo para horizontal 😊</div>
+    </div>
+  </div>
+
   <div id="frame" role="application" aria-label="My New Story Prototype">
     <!-- HUD -->
     <div id="hud">
@@ -34,7 +42,6 @@
       </div>
 
       <div class="hud-right">
-        <!-- Restart com ícone -->
         <button id="btnRestart" title="Reiniciar (voltar ao Dia 1)" class="hud-btn">
           <img src="files/restart_icon.png" alt="Reiniciar" class="icon-28" />
         </button>
@@ -60,7 +67,8 @@
     <div id="toast" role="status"></div>
   </div>
 
-  <!-- Ordem importa -->
+  <!-- Ordem: responsive antes de tudo -->
+  <script src="js/responsive.js"></script>
   <script src="js/state.js"></script>
   <script src="js/dialogue.js"></script>
   <script src="js/home.js"></script>
